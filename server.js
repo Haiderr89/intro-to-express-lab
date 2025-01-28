@@ -22,8 +22,8 @@ app.get('/greetings/:username', (req, res) => {
 app.get('/roll/:numberParam', (req, res) => {
     const number = req.params.numberParam;
 
-    if(!isNaN(number)){
-    res.send(`You rolled a ${number}`);
+    if (!isNaN(number)) {
+        res.send(`You rolled a ${number}`);
 
     }
     else {
@@ -38,16 +38,16 @@ const collectibles = [
     { name: 'shiny ball', price: 5.95 },
     { name: 'autographed picture of a dog', price: 10 },
     { name: 'vintage 1970s yogurt SOLD AS-IS', price: 0.99 }
-  ];
-  
+];
+
 app.get('/collectibles/:indexParam', (req, res) => {
 
-    if (req.params.indexParam > 2 ) {
-        res.send('This item is not yet in stock. Check back soon!') 
+    if (req.params.indexParam > 2) {
+        res.send('This item is not yet in stock. Check back soon!')
     }
-    else{
+    else {
         res.send(`So, you want the ${collectibles[req.params.indexParam].name}? For ${collectibles[req.params.indexParam].price}, it can be yours!`);
-    }   
+    }
 })
 
 //========================================================================
@@ -69,34 +69,33 @@ app.get('/shoes', (req, res) => {
     const max = req.query.maxPrice;
     const shoeType = req.query.type;
 
-    const result = []; 
+    if (!min && !max && !shoeType) {
+        return res.send(shoes);
+    }
 
-for (let i = 0; i < shoes.length; i++) {
+    const result = [];
 
-const shoe = shoes[i];
+    for (let i = 0; i < shoes.length; i++) {
+
+        const shoe = shoes[i];
         if (shoe.price >= min) {
             result.push(shoe);
         }
-        if (shoe.type === shoeType){
+        if (shoe.type === shoeType) {
             result.push(shoe);
         }
-        if (shoe.price <= max){
+        if (shoe.price <= max) {
             result.push(shoe);
         }
         // else{
         //     res.send('Nothing Matches!');
         // }
     }
-        res.send(result);
+    res.send(result);
 });
 
 
-
-
-
-
-
-// Listen for requests on port 4000
-app.listen(4000, () => {
-    console.log('Listening on port 4000')
-  })
+// Listen for requests on port 3000
+app.listen(3000, () => {
+    console.log('Listening on port 3000')
+})
