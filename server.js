@@ -22,12 +22,14 @@ app.get('/greetings/:username', (req, res) => {
 app.get('/roll/:numberParam', (req, res) => {
     const number = req.params.numberParam;
 
-    if (!isNaN(number)) {
-        res.send(`You rolled a ${number}`);
+    if (!isNaN(number) && number > 0) {
+        const randomNumber = Math.floor(Math.random() * (number));
+        res.send(`You rolled a ${randomNumber}`);
 
     }
+
     else {
-        res.send('Invalid number');
+        res.send('Invalid input');
     }
 })
 
